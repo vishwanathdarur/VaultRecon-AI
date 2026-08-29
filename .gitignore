@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments & Keys
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Temporary Databases & Test Directories
+testdb*
+data_vault*
+*.log
+
+# C++ Build Artifacts
+MiniVaultDB/src/**/*.o
+MiniVaultDB/src/*.o
+MiniVaultDB/test.out
+MiniVaultDB/testdb*
+
+# OS & Editor Files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+

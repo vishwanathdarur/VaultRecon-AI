@@ -1,0 +1,2 @@
+office_id,firm_id,office_name,city_code,is_headquarters,opened_date
+OFF000000001,FIRM000000001,Berlin Office,BER,True,2005-05-01

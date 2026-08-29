@@ -1,0 +1,39 @@
+project:
+  months: 2
+  seed: 42
+firms:
+  small:
+    count: 1
+    offices:
+      min: 1
+      max: 1
+    employees:
+      min: 5
+      max: 5
+    clients:
+      min: 8
+      max: 8
+  medium:
+    count: 0
+  large:
+    count: 0
+activity:
+  invoices_per_month:
+    MICRO:
+      min: 1
+      max: 2
+    SMALL:
+      min: 1
+      max: 3
+    MEDIUM:
+      min: 2
+      max: 4
+    LARGE:
+      min: 3
+      max: 5
+data_quality:
+  mode: clean
+  minimum_issues_per_rule:
+    MISSING_VAT_ID: 0
+    INVALID_VAT_RATE: 0
+    DUPLICATE_DOCUMENT_REFERENCE: 0

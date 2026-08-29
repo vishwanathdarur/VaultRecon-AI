@@ -1,0 +1,15 @@
+legal_form_code,legal_form_name,legal_form_category
+EU,Einzelunternehmen,SOLE_PROPRIETORSHIP
+EK,Eingetragener Kaufmann / Eingetragene Kauffrau (e.K.),SOLE_PROPRIETORSHIP
+GBR,Gesellschaft bürgerlichen Rechts (GbR),PARTNERSHIP
+OHG,Offene Handelsgesellschaft (OHG),PARTNERSHIP
+KG,Kommanditgesellschaft (KG),PARTNERSHIP
+GMBH,Gesellschaft mit beschränkter Haftung (GmbH),CORPORATION
+UG,Unternehmergesellschaft (haftungsbeschränkt),CORPORATION
+GMBHCO,GmbH & Co. KG,PARTNERSHIP
+AG,Aktiengesellschaft (AG),CORPORATION
+KGaA,Kommanditgesellschaft auf Aktien (KGaA),CORPORATION
+SE,Europäische Gesellschaft (SE),CORPORATION
+EG,Eingetragene Genossenschaft (eG),COOPERATIVE
+EV,Eingetragener Verein (e.V.),ASSOCIATION
+STIFT,Stiftung,FOUNDATION

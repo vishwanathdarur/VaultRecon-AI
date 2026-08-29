@@ -1,0 +1,37 @@
+project:
+  months: 6
+  seed: 42
+  start_date: '2025-01-01'
+firms:
+  small:
+    count: 2
+    clients:
+      min: 30
+      max: 50
+  medium:
+    count: 1
+    clients:
+      min: 70
+      max: 100
+  large:
+    count: 0
+activity:
+  invoices_per_month:
+    MICRO:
+      min: 1
+      max: 2
+    SMALL:
+      min: 2
+      max: 5
+    MEDIUM:
+      min: 5
+      max: 12
+    LARGE:
+      min: 12
+      max: 25
+data_quality:
+  mode: quality-test
+  minimum_issues_per_rule:
+    MISSING_VAT_ID: 1
+    INVALID_VAT_RATE: 1
+    DUPLICATE_DOCUMENT_REFERENCE: 1

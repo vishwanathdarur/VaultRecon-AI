@@ -1,0 +1,2 @@
+firm_id,firm_name,size_class,headquarters_city_code,founded_date,base_currency,configured_client_min,configured_client_max
+FIRM000000001,Berlin Accounting Partners 001,SMALL,BER,2005-05-01,EUR,8,8

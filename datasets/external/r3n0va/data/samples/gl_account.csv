@@ -1,0 +1,13 @@
+gl_account_code,gl_account_name,account_type
+1000,Bank,ASSET
+1200,Accounts receivable,ASSET
+1400,Input VAT,ASSET
+1600,Accounts payable,LIABILITY
+1776,Output VAT,LIABILITY
+2000,Share capital,EQUITY
+3000,Sales revenue,REVENUE
+4000,Cost of materials and external services,EXPENSE
+4200,Rent expense,EXPENSE
+4300,Payroll expense,EXPENSE
+4400,Bank fees,EXPENSE
+4500,Other expenses,EXPENSE

@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "generated_at": "2026-08-28T14:28:55.859102+00:00",
+    "data_directory": "datasets/default/data",
+    "memtable_size_mb": 128,
+    "llm_provider": "mock"
+  },
+  "reconciliation_matrix": {
+    "total_records_ingested": 49550,
+    "total_cases_evaluated": 19650,
+    "total_clean_matches": 16200,
+    "match_rate_percentage": 82.44,
+    "level1_order_matches": 7000,
+    "level2_batch_matches": 9200,
+    "total_exceptions_generated": 3750,
+    "ai_resolved_contractual": 0,
+    "escalated_to_human_review": 3750,
+    "human_review_percentage": 100.0,
+    "false_match_count": 0
+  },
+  "exceptions_by_type": {
+    "DUPLICATE_INTERNAL": 500,
+    "MISSING_PROCESSOR": 300,
+    "FEE_MISMATCH": 350,
+    "PARTIAL_REFUND": 350,
+    "AMOUNT_MISMATCH": 350,
+    "FULL_REFUND": 250,
+    "OVERPAYMENT": 250,
+    "CURRENCY_MISMATCH": 200,
+    "DUPLICATE_PROCESSOR": 250,
+    "UNKNOWN_FEE_POLICY": 150,
+    "MISSING_INTERNAL": 300,
+    "DUPLICATE_BANK_ENTRY": 150,
+    "MISSING_BANK_SETTLEMENT": 200,
+    "LATE_SETTLEMENT": 150
+  },
+  "performance_telemetry": {
+    "ingestion_throughput_rps": 18766.41,
+    "recon_throughput_cps": 24180.12,
+    "total_pipeline_time_sec": 172.1871
+  }
+}

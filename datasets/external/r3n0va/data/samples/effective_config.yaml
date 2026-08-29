@@ -1,0 +1,235 @@
+project:
+  name: Synthetic Accounting Data Project
+  seed: 42
+  country_code: DE
+  locale: de-DE
+  base_currency: EUR
+  start_date: '2023-01-01'
+  months: 2
+output:
+  directory: data/generated/default
+  overwrite: true
+  formats:
+  - csv
+  csv_delimiter: ','
+  run_validation: true
+firms:
+  small:
+    count: 1
+    offices:
+      min: 1
+      max: 1
+    employees:
+      min: 5
+      max: 5
+    clients:
+      min: 8
+      max: 8
+  medium:
+    count: 0
+    offices:
+      min: 2
+      max: 3
+    employees:
+      min: 16
+      max: 30
+    clients:
+      min: 220
+      max: 350
+  large:
+    count: 0
+    offices:
+      min: 5
+      max: 7
+    employees:
+      min: 38
+      max: 60
+    clients:
+      min: 450
+      max: 650
+  roles:
+    HEAD:
+      share: 0.02
+      min_per_firm: 1
+    CM_SR:
+      share: 0.08
+      min_per_firm: 1
+    CM_JR:
+      share: 0.18
+      min_per_firm: 1
+    ACC_SR:
+      share: 0.24
+      min_per_firm: 1
+    ACC_JR:
+      share: 0.48
+      min_per_firm: 1
+  employment:
+    contract_type: PERMANENT
+    weekly_hours_options:
+    - 20
+    - 25
+    - 30
+    - 32
+    - 40
+    weekly_hours_weights:
+    - 0.04
+    - 0.06
+    - 0.08
+    - 0.12
+    - 0.7
+clients:
+  employees:
+    min: 1
+    max: 1000
+  legal_form_weights:
+    EU: 0.08
+    EK: 0.05
+    GBR: 0.07
+    OHG: 0.02
+    KG: 0.03
+    GMBH: 0.42
+    UG: 0.18
+    GMBHCO: 0.07
+    AG: 0.03
+    KGaA: 0.005
+    SE: 0.005
+    EG: 0.02
+    EV: 0.025
+    STIFT: 0.015
+  lifecycle_weights:
+    ONBOARDING: 0.05
+    ACTIVE: 0.87
+    SUSPENDED: 0.03
+    TERMINATED: 0.05
+  complexity_weights:
+    LOW: 0.28
+    MEDIUM: 0.45
+    HIGH: 0.22
+    VERY_HIGH: 0.05
+  risk_weights:
+    LOW: 0.58
+    MEDIUM: 0.34
+    HIGH: 0.08
+  digital_maturity_weights:
+    LOW: 0.2
+    MEDIUM: 0.5
+    HIGH: 0.3
+  foreign_trade_probability: 0.18
+  foreign_account_probability: 0.55
+  foreign_currencies:
+  - USD
+  - GBP
+  - CHF
+  - PLN
+  - CZK
+  - SEK
+  - NOK
+  - DKK
+  employee_distribution:
+    lognormal_mu: 2.6
+    lognormal_sigma: 1.35
+    large_employer_probability: 0.025
+services:
+  enabled:
+    FIA: true
+    AP: true
+    AR: true
+    VAT: true
+    PAY: true
+    MGT: true
+    AFS: true
+    CTR: true
+    ADV: true
+    FORM: true
+    CLOSE: true
+  adoption:
+    PAY: 0.72
+    AP: 0.55
+    AR: 0.55
+    MGT: 0.28
+    AFS: 0.3
+    CTR: 0.24
+    ADV: 0.16
+pricing:
+  monthly_base_fee:
+    min: 120
+    max: 4500
+  transaction_fee:
+    min: 0.5
+    max: 2.75
+  discount_options_pct:
+  - 0
+  - 0
+  - 0
+  - 5
+  - 10
+  - 15
+  sla_tier_weights:
+    STANDARD: 0.62
+    PRIORITY: 0.29
+    PREMIUM: 0.09
+  complexity_multiplier:
+    LOW: 0.8
+    MEDIUM: 1.0
+    HIGH: 1.35
+    VERY_HIGH: 1.75
+activity:
+  invoices_per_month:
+    MICRO:
+      min: 1
+      max: 2
+    SMALL:
+      min: 1
+      max: 3
+    MEDIUM:
+      min: 2
+      max: 4
+    LARGE:
+      min: 3
+      max: 5
+  purchase_to_sales_ratio:
+    min: 0.65
+    max: 1.2
+  quarter_end_multiplier: 1.15
+  payment_probability: 0.84
+  partial_payment_probability: 0.06
+  late_document_probability: 0.16
+  automatic_reconciliation_probability: 0.78
+  vat_filing_monthly_probability: 0.75
+workflow:
+  reminder_after_days: 5
+  standard_response_sla_hours: 48
+  priority_response_sla_hours: 24
+  rework_distribution:
+    '0': 0.78
+    '1': 0.18
+    '2': 0.04
+ledger:
+  enabled: true
+  balance_tolerance_eur: 0.01
+  controlled_chart_of_accounts: true
+data_quality:
+  mode: clean
+  injection:
+    missing_vat_id_probability: 0.002
+    invalid_vat_rate_probability: 0.001
+    duplicate_document_reference_probability: 0.001
+  fail_on_unexpected_issue: true
+  minimum_issues_per_rule:
+    MISSING_VAT_ID: 0
+    INVALID_VAT_RATE: 0
+    DUPLICATE_DOCUMENT_REFERENCE: 0
+runtime:
+  progress: false
+  progress_every_clients: 100
+scenario:
+  name: baseline
+  description: Stable business with normal seasonality and payment behaviour.
+  multipliers:
+    client_growth: 1.0
+    client_churn: 1.0
+    document_delay: 1.0
+    payment_delay: 1.0
+    workload: 1.0
+    foreign_trade: 1.0
+    dq_injection: 1.0

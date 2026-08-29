@@ -1,0 +1,9 @@
+contact_id,client_id,first_name,last_name,role_title,email,phone,is_primary
+CON000000001,CLI000000001,Lea,Krüger,Owner,lea.kruger.000001@example-client.de,+49-3513-8475710,True
+CON000000002,CLI000000002,Felix,Schmidt,Managing Director,felix.schmidt.000002@example-client.de,+49-8827-4576583,True
+CON000000003,CLI000000003,Lena,Krüger,Managing Director,lena.kruger.000003@example-client.de,+49-1433-8253566,True
+CON000000004,CLI000000004,Anna,Schneider,Managing Director,anna.schneider.000004@example-client.de,+49-3780-1230789,True
+CON000000005,CLI000000005,Arthur,Fischer,Managing Director,arthur.fischer.000005@example-client.de,+49-6626-5792553,True
+CON000000006,CLI000000006,Daniel,Müller,Finance Manager,daniel.muller.000006@example-client.de,+49-6239-136161,True
+CON000000007,CLI000000007,Lukas,Schneider,Finance Manager,lukas.schneider.000007@example-client.de,+49-1152-1240194,True
+CON000000008,CLI000000008,Laura,Schmidt,Office Manager,laura.schmidt.000008@example-client.de,+49-9254-1777407,True

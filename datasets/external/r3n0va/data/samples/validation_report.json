@@ -1,0 +1,417 @@
+{
+  "input_directory": "/mnt/data/synthetic-accounting-data-generator-v2.3/data/generated/final_smoke",
+  "passed": true,
+  "failed_check_count": 0,
+  "warning_count": 0,
+  "expected_dq_issue_count": 0,
+  "checks": [
+    {
+      "check_name": "accounting_firm_nonempty",
+      "passed": true,
+      "details": "1 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "office_nonempty",
+      "passed": true,
+      "details": "1 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_nonempty",
+      "passed": true,
+      "details": "5 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_company_nonempty",
+      "passed": true,
+      "details": "8 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "service_contract_nonempty",
+      "passed": true,
+      "details": "8 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "city_region_fk",
+      "passed": true,
+      "details": "city \u2192 region",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "firm_headquarters_city_fk",
+      "passed": true,
+      "details": "firm \u2192 headquarters city",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "office_firm_fk",
+      "passed": true,
+      "details": "office \u2192 firm",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "office_city_fk",
+      "passed": true,
+      "details": "office \u2192 city",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "office_opened_after_firm_founded",
+      "passed": true,
+      "details": "0 invalid office dates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_firm_fk",
+      "passed": true,
+      "details": "employee \u2192 firm",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_office_fk",
+      "passed": true,
+      "details": "employee \u2192 office",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_office_same_firm",
+      "passed": true,
+      "details": "employee office belongs to employee firm",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_role_scope",
+      "passed": true,
+      "details": "only agreed employee roles",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "permanent_active_employment",
+      "passed": true,
+      "details": "all employees are active permanent employees",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_started_after_firm_founded",
+      "passed": true,
+      "details": "0 invalid employment dates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "employee_email_uniqueness",
+      "passed": true,
+      "details": "0 duplicates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_firm_fk",
+      "passed": true,
+      "details": "client \u2192 firm",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_office_fk",
+      "passed": true,
+      "details": "client \u2192 primary office",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_office_same_firm",
+      "passed": true,
+      "details": "client primary office belongs to accounting firm",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_legal_form_fk",
+      "passed": true,
+      "details": "client \u2192 legal form",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_industry_fk",
+      "passed": true,
+      "details": "client \u2192 industry",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_city_fk",
+      "passed": true,
+      "details": "client \u2192 city",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_base_currency_fk",
+      "passed": true,
+      "details": "client \u2192 base currency",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_company_name_uniqueness",
+      "passed": true,
+      "details": "0 duplicates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "company_name_legal_form_consistency",
+      "passed": true,
+      "details": "0 inconsistent company names",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "non_registered_clients_have_no_vat_id",
+      "passed": true,
+      "details": "0 violations",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "registered_clients_have_vat_id_or_expected_dq",
+      "passed": true,
+      "details": "0 unexplained missing VAT IDs",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "vat_id_uniqueness",
+      "passed": true,
+      "details": "0 duplicates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_lifecycle_date_order",
+      "passed": true,
+      "details": "0 invalid client date sequences",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "contact_client_fk",
+      "passed": true,
+      "details": "contact \u2192 client",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_contact_email_uniqueness",
+      "passed": true,
+      "details": "0 duplicates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "client_event_lifecycle_consistency",
+      "passed": true,
+      "details": "0 invalid lifecycle events",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "assignment_client_fk",
+      "passed": true,
+      "details": "assignment \u2192 client",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "assignment_employee_fk",
+      "passed": true,
+      "details": "assignment \u2192 employees",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "assignment_role_consistency",
+      "passed": true,
+      "details": "0 invalid employee roles",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "assignment_firm_consistency",
+      "passed": true,
+      "details": "0 cross-firm assignments",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "one_current_assignment_per_client",
+      "passed": true,
+      "details": "8 assignments for 8 clients",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "contract_client_and_date_consistency",
+      "passed": true,
+      "details": "0 contract inconsistencies",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "one_primary_contract_per_client",
+      "passed": true,
+      "details": "8 contracts for 8 clients",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "contract_service_fk",
+      "passed": true,
+      "details": "contract service \u2192 contract",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "contract_service_type_fk",
+      "passed": true,
+      "details": "contract service \u2192 service type",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "bank_account_client_fk",
+      "passed": true,
+      "details": "bank account \u2192 client",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "bank_account_currency_fk",
+      "passed": true,
+      "details": "bank account \u2192 currency",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "counterparty_client_fk",
+      "passed": true,
+      "details": "counterparty \u2192 client",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "counterparty_currency_fk",
+      "passed": true,
+      "details": "counterparty \u2192 currency",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "accounting_document_nonempty",
+      "passed": true,
+      "details": "63 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "accounting_document_primary_key_uniqueness",
+      "passed": true,
+      "details": "0 duplicate IDs",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "accounting_document_foreign_keys",
+      "passed": true,
+      "details": "0 FK errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "document_reference_uniqueness_or_expected_dq",
+      "passed": true,
+      "details": "0 unexplained duplicates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "business_invoice_nonempty",
+      "passed": true,
+      "details": "63 rows",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "business_invoice_primary_key_uniqueness",
+      "passed": true,
+      "details": "0 duplicate IDs",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "invoice_document_client_counterparty_consistency",
+      "passed": true,
+      "details": "0 relationship errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "invoice_arithmetic",
+      "passed": true,
+      "details": "0 arithmetic errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "invoice_date_order",
+      "passed": true,
+      "details": "0 invalid due dates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "invoice_vat_rate_or_expected_dq",
+      "passed": true,
+      "details": "0 unexplained invalid VAT rates",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "payment_integrity",
+      "passed": true,
+      "details": "52 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "bank_transaction_integrity",
+      "passed": true,
+      "details": "52 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "reconciliation_match_integrity",
+      "passed": true,
+      "details": "52 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "journal_entry_integrity",
+      "passed": true,
+      "details": "115 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "journal_line_integrity",
+      "passed": true,
+      "details": "293 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "balanced_journal_entries",
+      "passed": true,
+      "details": "0 unbalanced entries",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "tax_filing_integrity",
+      "passed": true,
+      "details": "12 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "document_request_integrity",
+      "passed": true,
+      "details": "5 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "communication_event_integrity",
+      "passed": true,
+      "details": "15 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "work_item_integrity",
+      "passed": true,
+      "details": "58 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "firm_invoice_integrity",
+      "passed": true,
+      "details": "15 rows; 0 errors",
+      "failure_severity": "ERROR"
+    },
+    {
+      "check_name": "firm_payment_integrity",
+      "passed": true,
+      "details": "14 rows; 0 errors",
+      "failure_severity": "ERROR"
+    }
+  ]
+}

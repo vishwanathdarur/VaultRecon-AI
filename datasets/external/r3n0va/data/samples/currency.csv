@@ -1,0 +1,10 @@
+currency_code,is_base_currency
+EUR,True
+USD,False
+GBP,False
+CHF,False
+PLN,False
+CZK,False
+SEK,False
+NOK,False
+DKK,False

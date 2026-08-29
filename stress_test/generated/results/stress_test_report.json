@@ -1,0 +1,255 @@
+{
+  "total_cases": 1000,
+  "true_positives": 550,
+  "true_negatives": 400,
+  "false_positives": 0,
+  "false_negatives": 50,
+  "accuracy_pct": 95.0,
+  "precision_pct": 100.0,
+  "recall_pct": 91.66666666666666,
+  "f1_score_pct": 95.65217391304347,
+  "false_match_rate_pct": 0.0,
+  "total_exceptions_investigated": 480,
+  "ai_resolved_count": 0,
+  "human_review_count": 480,
+  "unsafe_ai_resolutions": 0,
+  "ai_decision_accuracy_pct": 82.22222222222221,
+  "scenario_breakdown": [
+    {
+      "scenario_type": "EXACT_MATCH",
+      "total_cases": 350,
+      "correct_cases": 350,
+      "accuracy_pct": 100.0,
+      "true_positives": 350,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "TIMING_MATCH",
+      "total_cases": 100,
+      "correct_cases": 100,
+      "accuracy_pct": 100.0,
+      "true_positives": 100,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "TOLERANCE_MATCH",
+      "total_cases": 40,
+      "correct_cases": 40,
+      "accuracy_pct": 100.0,
+      "true_positives": 40,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "FUZZY_DESCRIPTION_MATCH",
+      "total_cases": 30,
+      "correct_cases": 30,
+      "accuracy_pct": 100.0,
+      "true_positives": 30,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "PARTIAL_PAYMENT",
+      "total_cases": 30,
+      "correct_cases": 0,
+      "accuracy_pct": 0.0,
+      "true_positives": 0,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 30
+    },
+    {
+      "scenario_type": "FEE_MISMATCH_RESOLVABLE",
+      "total_cases": 30,
+      "correct_cases": 30,
+      "accuracy_pct": 100.0,
+      "true_positives": 30,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "BUNDLED_PAYMENT_RESOLVABLE",
+      "total_cases": 20,
+      "correct_cases": 0,
+      "accuracy_pct": 0.0,
+      "true_positives": 0,
+      "true_negatives": 0,
+      "false_positives": 0,
+      "false_negatives": 20
+    },
+    {
+      "scenario_type": "FEE_MISMATCH_UNRESOLVABLE",
+      "total_cases": 50,
+      "correct_cases": 50,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 50,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "AMOUNT_MISMATCH",
+      "total_cases": 50,
+      "correct_cases": 50,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 50,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "MISSING_PROCESSOR",
+      "total_cases": 40,
+      "correct_cases": 40,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 40,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "MISSING_INTERNAL",
+      "total_cases": 40,
+      "correct_cases": 40,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 40,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "DUPLICATE_PROCESSOR",
+      "total_cases": 30,
+      "correct_cases": 30,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 30,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "DUPLICATE_INTERNAL",
+      "total_cases": 30,
+      "correct_cases": 30,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 30,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "PARTIAL_REFUND",
+      "total_cases": 30,
+      "correct_cases": 30,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 30,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "CURRENCY_MISMATCH",
+      "total_cases": 20,
+      "correct_cases": 20,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 20,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "LATE_SETTLEMENT",
+      "total_cases": 20,
+      "correct_cases": 20,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 20,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "MISSING_BANK_DEPOSIT",
+      "total_cases": 20,
+      "correct_cases": 20,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 20,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "UNKNOWN_FEE_POLICY",
+      "total_cases": 10,
+      "correct_cases": 10,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 10,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "BUNDLED_PAYMENT_AMBIGUOUS",
+      "total_cases": 10,
+      "correct_cases": 10,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 10,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "ADVERSARIAL_PROMPT_INJECTION",
+      "total_cases": 20,
+      "correct_cases": 20,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 20,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "ADVERSARIAL_HALLUCINATED_ID",
+      "total_cases": 20,
+      "correct_cases": 20,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 20,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    {
+      "scenario_type": "ADVERSARIAL_CONTRADICTION",
+      "total_cases": 10,
+      "correct_cases": 10,
+      "accuracy_pct": 100.0,
+      "true_positives": 0,
+      "true_negatives": 10,
+      "false_positives": 0,
+      "false_negatives": 0
+    }
+  ],
+  "telemetry": {
+    "ingestion_duration_sec": 0.22079502699989462,
+    "ingestion_throughput_rps": 13089.062916264773,
+    "deterministic_duration_sec": 0.06387847799987867,
+    "deterministic_throughput_cps": 15028.535902214568,
+    "ai_duration_sec": 0.6060388560003958,
+    "ai_throughput_eps": 792.0284239987519,
+    "total_pipeline_duration_sec": 0.893087363000177,
+    "total_pipeline_throughput_cps": 1074.9228348445567,
+    "p50_lookup_latency_ms": 0.0027549999686016236,
+    "p95_lookup_latency_ms": 0.0030950500104154344,
+    "p99_lookup_latency_ms": 0.0032675000193194124,
+    "p50_ai_latency_ms": 1.3910269999541924,
+    "p95_ai_latency_ms": 2.051415999812888,
+    "p99_ai_latency_ms": 2.8506325998569078
+  }
+}

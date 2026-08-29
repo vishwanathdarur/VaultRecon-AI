@@ -1,0 +1,19 @@
+industry_code,industry_name
+MAN,Manufacturing
+RET,Retail
+WHO,Wholesale
+CON,Construction
+LOG,Transport and logistics
+HOS,Hospitality
+TEC,Software and IT services
+PRO,Professional services
+MED,Healthcare
+EDU,Education
+REA,Real estate
+ENE,Energy
+AGR,Agriculture
+MEDIA,Media and creative industries
+AUT,Automotive
+MAR,Maritime and port services
+NON,Non-profit
+HLD,Holding company

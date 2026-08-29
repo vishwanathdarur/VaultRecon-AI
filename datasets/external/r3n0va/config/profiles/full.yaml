@@ -1,0 +1,61 @@
+project:
+  start_date: '2023-01-01'
+  months: 36
+  seed: 2026
+firms:
+  small:
+    count: 4
+    offices:
+      min: 1
+      max: 1
+    employees:
+      min: 5
+      max: 10
+    clients:
+      min: 220
+      max: 500
+  medium:
+    count: 3
+    offices:
+      min: 2
+      max: 3
+    employees:
+      min: 16
+      max: 30
+    clients:
+      min: 900
+      max: 2000
+  large:
+    count: 2
+    offices:
+      min: 5
+      max: 7
+    employees:
+      min: 38
+      max: 60
+    clients:
+      min: 2800
+      max: 5000
+activity:
+  invoices_per_month:
+    MICRO:
+      min: 3
+      max: 15
+    SMALL:
+      min: 15
+      max: 70
+    MEDIUM:
+      min: 70
+      max: 300
+    LARGE:
+      min: 300
+      max: 1200
+runtime:
+  progress: true
+  progress_every_clients: 50
+data_quality:
+  mode: quality-test
+  minimum_issues_per_rule:
+    MISSING_VAT_ID: 0
+    INVALID_VAT_RATE: 0
+    DUPLICATE_DOCUMENT_REFERENCE: 0
