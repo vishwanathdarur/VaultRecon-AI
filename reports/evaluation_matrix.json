@@ -1,42 +1,47 @@
 {
   "metadata": {
-    "generated_at": "2026-08-28T14:28:55.859102+00:00",
-    "data_directory": "datasets/default/data",
+    "generated_at": "2026-08-29T12:04:46.504771+00:00",
+    "data_directory": "datasets/data",
     "memtable_size_mb": 128,
-    "llm_provider": "mock"
+    "llm_provider": "mocak"
   },
   "reconciliation_matrix": {
-    "total_records_ingested": 49550,
-    "total_cases_evaluated": 19650,
-    "total_clean_matches": 16200,
-    "match_rate_percentage": 82.44,
-    "level1_order_matches": 7000,
-    "level2_batch_matches": 9200,
-    "total_exceptions_generated": 3750,
+    "total_records_ingested": 5600,
+    "total_cases_evaluated": 2000,
+    "total_clean_matches": 1683,
+    "match_rate_percentage": 84.15,
+    "level1_order_matches": 729,
+    "level2_batch_matches": 954,
+    "total_exceptions_generated": 359,
     "ai_resolved_contractual": 0,
-    "escalated_to_human_review": 3750,
+    "escalated_to_human_review": 359,
     "human_review_percentage": 100.0,
     "false_match_count": 0
   },
   "exceptions_by_type": {
-    "DUPLICATE_INTERNAL": 500,
-    "MISSING_PROCESSOR": 300,
-    "FEE_MISMATCH": 350,
-    "PARTIAL_REFUND": 350,
-    "AMOUNT_MISMATCH": 350,
-    "FULL_REFUND": 250,
-    "OVERPAYMENT": 250,
-    "CURRENCY_MISMATCH": 200,
-    "DUPLICATE_PROCESSOR": 250,
-    "UNKNOWN_FEE_POLICY": 150,
-    "MISSING_INTERNAL": 300,
-    "DUPLICATE_BANK_ENTRY": 150,
-    "MISSING_BANK_SETTLEMENT": 200,
-    "LATE_SETTLEMENT": 150
+    "DUPLICATE_INTERNAL": 48,
+    "MISSING_PROCESSOR": 35,
+    "FEE_MISMATCH": 29,
+    "PARTIAL_REFUND": 35,
+    "AMOUNT_MISMATCH": 42,
+    "FULL_REFUND": 16,
+    "OVERPAYMENT": 23,
+    "CURRENCY_MISMATCH": 12,
+    "DUPLICATE_PROCESSOR": 17,
+    "UNKNOWN_FEE_POLICY": 14,
+    "MISSING_INTERNAL": 42,
+    "DUPLICATE_BANK_ENTRY": 12,
+    "MISSING_BANK_SETTLEMENT": 21,
+    "LATE_SETTLEMENT": 13
   },
   "performance_telemetry": {
-    "ingestion_throughput_rps": 18766.41,
-    "recon_throughput_cps": 24180.12,
-    "total_pipeline_time_sec": 172.1871
+    "ingestion_duration_sec": 0.3653,
+    "ingestion_throughput_rps": 15365.74,
+    "deterministic_recon_duration_sec": 0.0794,
+    "recon_throughput_cps": 25675.01,
+    "our_system_duration_sec": 0.4447,
+    "ai_investigation_duration_sec": 1.1555,
+    "ai_throughput_eps": 310.7,
+    "total_pipeline_time_sec": 1.704
   }
 }

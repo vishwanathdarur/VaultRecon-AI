@@ -1,2 +1,0 @@
-dq_issue_id,table_name,record_id,rule_code,description,expected_issue
-NONE,,,NO_INJECTED_ISSUES,Clean generation mode or no random issue selected.,False

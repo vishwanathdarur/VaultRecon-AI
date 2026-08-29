@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 """
-Default Pipeline Execution Runner for VaultRecon AI.
-Loads the canonical multi-source financial dataset from datasets/default/data/
+Pipeline Execution Runner for VaultRecon AI.
+Loads the canonical multi-source financial dataset from datasets/data/
 and executes the complete end-to-end reconciliation and AI investigation lifecycle.
 """
 
@@ -17,7 +18,7 @@ from rich.panel import Panel
 from rich.table import Table
 
 # Add project root to sys.path
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
@@ -54,7 +55,7 @@ def parse_timestamp(val) -> int:
 
 
 def load_default_csv_dataset(data_dir: str, limit: Optional[int] = None) -> NormalizedDataset:
-    """Load the 7 canonical financial data CSVs from datasets/default/data/."""
+    """Load the 7 canonical financial data CSVs from datasets/data/."""
     dataset = NormalizedDataset(source_name="DefaultDataset_CSV")
 
     # 1. payments.csv
@@ -275,7 +276,7 @@ def run_default_pipeline(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="VaultRecon AI Default Production Dataset Runner")
-    parser.add_argument("--data-dir", type=str, default="datasets/default/data", help="Directory containing the CSV files (default: datasets/default/data)")
+    parser.add_argument("--data-dir", type=str, default="datasets/data", help="Directory containing the CSV files (default: datasets/data)")
     parser.add_argument("--records", type=int, default=None, help="Optional limit on number of payment records to process (default: all)")
     parser.add_argument("--provider", type=str, default=None, help="LLM provider (mock, gemini, openai)")
 

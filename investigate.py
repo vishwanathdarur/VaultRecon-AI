@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 VaultRecon AI Investigation Controller CLI.
 Provides an interactive command-line interface to inspect, investigate, and audit financial exceptions
@@ -6,6 +7,12 @@ using MiniVaultDB read-only tools, verified evidence citations, and guardrail po
 
 import sys
 import os
+
+# Setup root path resolution
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
 import argparse
 import json
 import shutil

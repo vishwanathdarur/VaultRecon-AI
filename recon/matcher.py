@@ -277,7 +277,7 @@ class ReconciliationEngine:
                         "related_ids": [inv.invoice_id, order_id],
                         "reason": f"Payment amount {pay.amount} exceeds invoice total {inv.amount}."
                     })
-                elif pay.amount < inv.amount - self.rules.amount_tolerance:
+                elif pay.amount < inv.amount - self.rules.amount_tolerance and not pay.metadata.get("is_partial"):
                     findings.append({
                         "type": "AMOUNT_MISMATCH",
                         "expected": inv.amount,

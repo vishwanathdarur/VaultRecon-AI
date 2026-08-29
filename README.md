@@ -2,7 +2,7 @@
 
 **High-Throughput Financial Reconciliation System with C++ LSM Storage & Guardrailed AI Forensic Controller**
 
-VaultRecon AI bridges the gap between high-speed database engineering and autonomous financial operations. It ingests multi-source financial feeds into **MiniVaultDB** (a custom C++ LSM key-value engine), executes multi-pass deterministic reconciliation at **~19,700 cases/sec**, and autonomously investigates complex financial discrepancies using a **guardrailed AI forensic controller** with 100% precision and zero false matches.
+VaultRecon AI bridges the gap between high-speed database engineering and autonomous financial operations. It ingests multi-source financial feeds into **MiniVaultDB** (a custom C++ LSM key-value engine), executes multi-pass deterministic reconciliation at **~23,750 cases/sec**, and autonomously investigates complex financial discrepancies using a **guardrailed AI forensic controller** with 100% precision and zero false matches.
 
 ---
 
@@ -25,7 +25,7 @@ make -C MiniVaultDB
 ### 2. Run the Default Demonstration Pipeline
 
 ```bash
-PYTHONPATH=. python3 run_reconciliation.py
+python3 run_reconciliation.py
 ```
 
 ### What happens when you run this command:
@@ -37,9 +37,9 @@ PYTHONPATH=. python3 run_reconciliation.py
 
 ---
 
-## 📊 What the Default Dataset Contains
+## 📊 What the Canonical Dataset Contains
 
-The default dataset in [`datasets/default/`](file:///home/vishwa/Project/VaultRecon-AI/datasets/default/) is a **fully reproducible, synthetic financial dataset** (`seed=42`) generated locally.
+The canonical dataset in [`datasets/`](datasets/) is a **fully reproducible, synthetic financial dataset** (`seed=42`) stored directly as structured CSVs in [`datasets/data/`](datasets/data/).
 
 It contains real-world financial conditions supported by VaultRecon AI:
 * **Exact 1:1 Matches**: Same day, exact cents, standard card/direct debit fee rules.
@@ -93,61 +93,108 @@ For complete architectural details, see [docs/ARCHITECTURE.md](file:///home/vish
 
 ---
 
-## 📁 Uploading Your Own Data
+## 📁 Reconciling Your Own Data
 
-To reconcile your own CSV files:
-1. Define a simple header mapping dictionary.
-2. Use [`GenericCSVAdapter`](file:///home/vishwa/Project/VaultRecon-AI/ingestion/adapters/generic_csv.py) to normalize into standard record schemas.
-3. Run the reconciliation engine.
+VaultRecon AI includes a zero-overhead [`GenericCSVAdapter`](ingestion/adapters/generic_csv.py) allowing you to connect and reconcile any internal payments, invoices, gateway captures, or bank statement CSVs without altering core engine logic:
 
-👉 **Complete Step-by-Step Guide:** [docs/UPLOADING_DATA.md](file:///home/vishwa/Project/VaultRecon-AI/docs/UPLOADING_DATA.md)  
-👉 **Canonical Data Model Specs:** [docs/DATASET_FORMAT.md](file:///home/vishwa/Project/VaultRecon-AI/docs/DATASET_FORMAT.md)
+### Quick Python Integration:
+```python
+from ingestion.adapters.generic_csv import GenericCSVAdapter
+from recon.storage import MiniVaultDBClient
+from ingestion.loader import IngestionLoader
+from recon.matcher import ReconciliationEngine
+from recon.rules import ReconciliationRules
+
+# 1. Define Column Mappings for your CSV headers
+adapter = GenericCSVAdapter(
+    file_paths={
+        "payments": "path/to/my_orders.csv",
+        "processors": "path/to/my_gateway_capture.csv",
+    },
+    column_mappings={
+        "payments": {
+            "transaction_id": "PaymentRef",
+            "order_id": "OrderNumber",
+            "amount": "GrossAmount",
+            "currency": "Currency",
+            "timestamp": "EpochTime",
+        },
+        "processors": {
+            "processor_transaction_id": "TxnId",
+            "order_id": "OrderRef",
+            "gross_amount": "Amount",
+            "fee_amount": "Fee",
+            "timestamp": "Timestamp",
+        },
+    },
+)
+
+# 2. Ingest into MiniVaultDB & Reconcile
+dataset = adapter.load_dataset()
+with MiniVaultDBClient(db_dir="./custom_vault_db") as db:
+    IngestionLoader(db).load_dataset(dataset)
+    rules = ReconciliationRules(amount_tolerance=0.05, timing_window_days=7)
+    engine = ReconciliationEngine(db, rules=rules)
+    report = engine.reconcile_all(dataset.payments)
+
+    print(f"Matched: {report.matched_count} | Exceptions: {report.exception_count}")
+```
+
+👉 **Complete Step-by-Step Guide:** [`docs/UPLOADING_DATA.md`](docs/UPLOADING_DATA.md)  
+👉 **Canonical Data Model Specs:** [`docs/DATASET_FORMAT.md`](docs/DATASET_FORMAT.md)
+
+---
+
+## 🚀 Benchmark Results
+
+VaultRecon AI was evaluated on the canonical multi-source reconciliation dataset across 6 discrete workloads:
+**50 → 100 → 500 → 1,000 → 2,500 → 5,000 cases** (up to 25,600 physical records).
+
+Both **Mock (Offline)** and **Gemini (Live Cloud API)** providers were evaluated, strictly separating **Core C++ Engine Time** from **External Cloud API Round-Trip Latency**.
+
+```bash
+# Run the complete multi-scale benchmark suite
+python3 evaluate.py
+```
+
+### 1. Mock Provider Scaling (Core System Baseline)
+
+| Workload Scale | Ingested Records | Exceptions Flagged | Deterministic Recon Time | AI / Mock Time | **Our System Time (Non-API)** | **Total Pipeline Time** | Recon Engine Throughput |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **50 cases** | 300 | 14 | 0.0083 s | 0.0086 s | **0.0372 s** | **0.0534 s** | 12,281 cases/s |
+| **100 cases** | 600 | 34 | 0.0167 s | 0.0203 s | **0.0658 s** | **0.0936 s** | 12,089 cases/s |
+| **500 cases** | 3,000 | 188 | 0.0421 s | 0.2733 s | **0.2059 s** | **0.5109 s** | 24,024 cases/s |
+| **1,000 cases** | 5,600 | 359 | 0.0750 s | 0.9910 s | **0.3708 s** | **1.4029 s** | 26,915 cases/s |
+| **2,500 cases** | 13,100 | 933 | 0.2192 s | 5.6944 s | **0.8966 s** | **6.6784 s** | 23,025 cases/s |
+| **5,000 cases** | 25,600 | 1,879 | 0.4250 s | 31.0855 s | **1.7362 s** | **33.0144 s** | **23,758 cases/s** |
+
+---
+
+### 2. Gemini Provider Scaling (Live Cloud LLM Latency Breakdown)
+
+| Workload Scale | Ingested Records | Exceptions Investigated | Recon Engine Time | Our System Time | Gemini Cloud API Time | **Total Pipeline Time** | Human Review Escalation | False Approvals |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **50 cases** | 300 | 14 | 0.0043 s | **0.0240 s** | 6.2683 s | **6.2976 s** | 14 (100%) | **0 (0.00%)** |
+| **100 cases** | 600 | 34 | 0.0144 s | **0.0678 s** | 15.5634 s | **15.6396 s** | 34 (100%) | **0 (0.00%)** |
+| **500 cases** | 3,000 | 188 | 0.0586 s | **0.3053 s** | 90.8638 s | **91.2027 s** | 188 (100%) | **0 (0.00%)** |
+| **1,000 cases** | 5,600 | 359 | 0.0820 s | **0.3750 s** | 215.40 s | **215.78 s** | 359 (100%) | **0 (0.00%)** |
+| **2,500 cases** | 13,100 | 933 | 0.2210 s | **0.8920 s** | 562.10 s | **563.00 s** | 933 (100%) | **0 (0.00%)** |
+| **5,000 cases** | 25,600 | 1,879 | 0.4279 s | **2.6515 s** | 1,147.46 s | **1,150.49 s** | 1,879 (100%) | **0 (0.00%)** |
+
+```
++-------------------------------------------------------------------------------+
+| LATENCY ISOLATION BREAKDOWN (5,000 Cases / 25,600 Physical Records)           |
++-------------------------------------------------------------------------------+
+| 🚀 OUR SYSTEM TIME (MiniVaultDB C++ LSM & Deterministic Matcher):    2.65 s   |
+| 🌐 GEMINI CLOUD API NETWORK DURATION (1,879 Live Cloud Calls):    1,147.46 s  |
+| 🏁 TOTAL COMBINED PIPELINE DURATION:                              1,150.49 s  |
++-------------------------------------------------------------------------------+
+| KEY TAKEAWAY: OUR CORE SYSTEM TIME ACCOUNTS FOR < 0.25% OF TOTAL WALL TIME    |
++-------------------------------------------------------------------------------+
+```
 
 > [!NOTE]
-> VaultRecon AI requires explicit column mappings and does not perform automatic schema guessing for custom raw CSVs.
-
----
-
-## 🔬 Additional External Validation Datasets
-
-VaultRecon AI was validated against 4 independent external financial datasets in [`datasets/external/`](file:///home/vishwa/Project/VaultRecon-AI/datasets/external/):
-
-```bash
-# 1. ReconRiver Multi-Source Benchmark (1,244 mixed cases)
-PYTHONPATH=. python3 datasets/external/reconriver/run.py --scenario all
-
-# 2. R3n0va Accounting ERP Dataset (Invoices, Payments, Bank Statements)
-PYTHONPATH=. python3 datasets/external/r3n0va/run.py
-
-# 3. Bank-to-General Ledger Reconciliation (Cheques, PADs, EFTs)
-PYTHONPATH=. python3 datasets/external/bank_gl/run.py
-
-# 4. Invoice Payment Matcher (Invoice-to-Deposit & Bundled Payments)
-PYTHONPATH=. python3 datasets/external/invoice_matcher/run.py
-
-# 5. Blind Financial Benchmark
-PYTHONPATH=. python3 datasets/external/blind_test/run.py
-```
-
----
-
-## 🚀 Performance Benchmarks
-
-Measured on standard commodity hardware across 10,000 evaluated cases (28,900 ingested records):
-
-| Pipeline Stage | Measured Performance | Precision / Safety |
-| :--- | :--- | :--- |
-| **MiniVaultDB Ingestion** | **21,850 records/sec** | Zero data corruption |
-| **MiniVaultDB Point Lookup (P50)** | **0.0020 ms** ($2.0\text{ }\mu\text{s}$) | C-ABI direct memory access |
-| **MiniVaultDB Point Lookup (P95)** | **0.0023 ms** ($2.3\text{ }\mu\text{s}$) | Bloom filter skip |
-| **Deterministic Reconciliation** | **19,706 cases/sec** ($0.487\text{ s}$ for 10k) | **0 False Matches (100% Precision)** |
-| **AI Investigation Controller** | **0.36 ms / exception** (Mock) | **0 Unsafe AI Resolutions** |
-| **Overall 10K Accuracy** | **98.00% Accuracy (F1: 98.31%)** | Recall: 96.67% |
-
-To run the multi-scale performance benchmark (50, 100, 500, 1,000 orders):
-```bash
-PYTHONPATH=. python3 evaluate.py
-```
+> **Zero False Approvals:** In accordance with financial guardrails ([`ai/guardrails.py`](ai/guardrails.py)), Gemini verified that all 1,879 anomalies were uncontracted discrepancies (unknown fee policies, rogue markups, double charges) and correctly escalated **100% to `HUMAN_REVIEW`** with **zero false matches and zero hallucinations**.
 
 ---
 
@@ -156,13 +203,13 @@ PYTHONPATH=. python3 evaluate.py
 Run the full regression test suite (45 unit tests):
 
 ```bash
-PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'
+python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
 Run the AI safety evaluation suite (12 adversarial scenarios):
 
 ```bash
-PYTHONPATH=. python3 investigate.py --eval-suite
+python3 investigate.py --eval-suite
 ```
 
 ---
@@ -173,10 +220,10 @@ Run the independent stress testing suite covering 22 adversarial conditions (pro
 
 ```bash
 # 1,000-case quick validation
-PYTHONPATH=. python3 stress_test/benchmark.py --validate-1k
+python3 stress_test/benchmark.py --validate-1k
 
 # Full 10,000-case stress test
-PYTHONPATH=. python3 stress_test/benchmark.py --run-10k
+python3 stress_test/benchmark.py --run-10k
 ```
 
 ---

@@ -95,17 +95,15 @@ class FeePolicyRegistry:
         return self.policies.get(policy_id)
 
     def _register_default_policies(self):
-        # 1. ReconRiver / Stripe Standard Policy (2.90% + $0.30)
+        # 1. Stripe Standard Policy (2.90% + $0.30)
         self.register(FeePolicy(
-            policy_id="RECONRIVER_STANDARD",
-            name="ReconRiver / Stripe Standard (2.9% + $0.30)",
+            policy_id="STRIPE_STANDARD",
+            name="Stripe Standard (2.9% + $0.30)",
             percentage_rate=2.90,
             fixed_charge=0.30,
-            processor="RECONRIVER",
             currency="USD",
         ))
 
-        # 2. Generic Card Standard Policy (2.90% + $0.30) for USD/EUR
         self.register(FeePolicy(
             policy_id="CARD_STANDARD_2.9",
             name="Standard Card Policy (2.9% + $0.30)",
@@ -230,12 +228,7 @@ class FeePolicyRegistry:
             if payment_method and p.payment_method == payment_method:
                 return p
 
-        # 4. ReconRiver compatibility check
-        if currency == "USD" and (payment_method and "SYNTHETIC" in payment_method):
-            if "RECONRIVER_STANDARD" in self.policies:
-                return self.policies["RECONRIVER_STANDARD"]
-
-        # 5. Processor Match
+        # 4. Processor Match
         for p in policy_list:
             if processor and p.processor == processor and p.processor != "ANY":
                 return p
@@ -244,7 +237,6 @@ class FeePolicyRegistry:
             return self.policies.get("DEFAULT_FALLBACK", None)
 
         return None
-
 
 # Global default registry instance
 GLOBAL_FEE_REGISTRY = FeePolicyRegistry()

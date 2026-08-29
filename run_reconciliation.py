@@ -6,6 +6,12 @@ and AI Controller exception investigation with performance metrics.
 """
 import os
 import sys
+
+# Setup root path resolution
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
 import argparse
 import time
 from rich.console import Console
@@ -18,12 +24,12 @@ from recon.matcher import ReconciliationEngine
 from ingestion.loader import IngestionLoader
 from ai.agent import AIController
 from ai.llm import get_llm_provider
-from datasets.default.run import load_default_csv_dataset
+from datasets.run import load_default_csv_dataset
 
 
 def main():
     parser = argparse.ArgumentParser(description="VaultRecon AI — High-Throughput Financial Reconciliation System")
-    parser.add_argument("--data-dir", type=str, default="datasets/default/data", help="Directory containing the canonical CSV files (default: datasets/default/data)")
+    parser.add_argument("--data-dir", type=str, default="datasets/data", help="Directory containing the canonical CSV files (default: datasets/data)")
     parser.add_argument("--records", type=int, default=None, help="Optional limit on number of records to process (default: all)")
     parser.add_argument("--db-dir", type=str, default="./data_vault", help="Directory path for MiniVaultDB storage")
     parser.add_argument("--provider", type=str, default=None, help="LLM provider (gemini, openai, mock). Defaults to env LLM_PROVIDER or mock.")
@@ -47,11 +53,15 @@ def main():
             dataset = load_default_csv_dataset(data_dir=args.data_dir, limit=args.records)
 
         # Phase 2: Ingest into MiniVaultDB
+        t_ingest_start = time.perf_counter()
         with console.status("[bold green]2. Ingesting records into MiniVaultDB (WAL + MemTable + SSTables)..."):
             loader = IngestionLoader(db)
             ingest_report = loader.load_dataset(dataset)
+        t_ingest_end = time.perf_counter()
+        t_ingest = max(t_ingest_end - t_ingest_start, 1e-6)
 
         # Phase 3: Deterministic Multi-Source Reconciliation
+        t_recon_start = time.perf_counter()
         with console.status("[bold green]3. Executing deterministic multi-source reconciliation..."):
             rules = ReconciliationRules(
                 amount_tolerance=0.05,
@@ -65,16 +75,23 @@ def main():
 
             engine = ReconciliationEngine(db, rules=rules)
             matcher_report = engine.reconcile_all(dataset.payments)
+        t_recon_end = time.perf_counter()
+        t_recon = max(t_recon_end - t_recon_start, 1e-6)
 
         # Phase 4: AI Controller Investigation on Difficult Exceptions
+        t_ai_start = time.perf_counter()
         with console.status(f"[bold green]4. Investigating {len(matcher_report.exceptions)} exceptions with AI Controller..."):
             llm_provider = get_llm_provider(args.provider)
             ai_controller = AIController(db, llm_provider=llm_provider, fee_registry=rules.fee_registry)
             for exc in matcher_report.exceptions:
                 ai_controller.investigate(exc)
+        t_ai_end = time.perf_counter()
+        t_ai = max(t_ai_end - t_ai_start, 1e-6)
 
     t_pipeline_end = time.perf_counter()
     total_elapsed = t_pipeline_end - t_pipeline_start
+    t_system = t_ingest + t_recon
+    ai_throughput = len(matcher_report.exceptions) / t_ai if t_ai > 0 else 0.0
 
     # Compute outcomes
     ai_resolved = sum(1 for e in matcher_report.exceptions if e.status == "AI_RESOLVED")
@@ -92,9 +109,11 @@ def main():
     table.add_row("AI Resolved (Verified Surcharge)", f"[cyan]{ai_resolved}[/cyan]")
     table.add_row("Escalated to Human Review", f"[red]{human_review}[/red]")
     table.add_row("False Matches (FP)", "[bold green]0 (0.00%)[/bold green]")
-    table.add_row("Ingestion Throughput", f"{ingest_report.throughput_records_per_sec:,.1f} rec/s")
-    table.add_row("Recon Engine Throughput", f"{matcher_report.throughput_records_per_sec:,.1f} cases/s")
-    table.add_row("Total Pipeline Time", f"{total_elapsed:.3f} sec")
+    table.add_row("Ingestion Time", f"{t_ingest:.4f} s ({ingest_report.throughput_records_per_sec:,.1f} rec/s)")
+    table.add_row("Deterministic Recon Time", f"{t_recon:.4f} s ({matcher_report.throughput_records_per_sec:,.1f} cases/s)")
+    table.add_row("Our System Time (Non-API)", f"[bold cyan]{t_system:.4f} s[/bold cyan]")
+    table.add_row("AI Investigation Time", f"{t_ai:.4f} s ({ai_throughput:,.1f} eps)")
+    table.add_row("Total Pipeline Time", f"[bold green]{total_elapsed:.4f} s[/bold green]")
     table.add_row("Status", "[bold green]COMPLETE[/bold green]")
 
     console.print(table)
@@ -160,8 +179,13 @@ def main():
             },
             "exceptions_by_type": type_counts,
             "performance_telemetry": {
-                "ingestion_throughput_rps": ingest_report.throughput_records_per_sec,
-                "recon_throughput_cps": matcher_report.throughput_records_per_sec,
+                "ingestion_duration_sec": round(t_ingest, 4),
+                "ingestion_throughput_rps": round(ingest_report.throughput_records_per_sec, 2),
+                "deterministic_recon_duration_sec": round(t_recon, 4),
+                "recon_throughput_cps": round(matcher_report.throughput_records_per_sec, 2),
+                "our_system_duration_sec": round(t_system, 4),
+                "ai_investigation_duration_sec": round(t_ai, 4),
+                "ai_throughput_eps": round(ai_throughput, 2),
                 "total_pipeline_time_sec": round(total_elapsed, 4),
             }
         }

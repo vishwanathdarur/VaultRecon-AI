@@ -37,23 +37,23 @@ To run the default dataset through the complete pipeline (Ingestion $\rightarrow
 
 ```bash
 # Default (100 cases)
-PYTHONPATH=. python3 datasets/default/run.py
+python3 datasets/run.py
 
 # Custom record count
-PYTHONPATH=. python3 datasets/default/run.py --records 500 --seed 42
+python3 datasets/run.py --records 500 --provider mock
 ```
 
 Or simply run the root convenience CLI:
 
 ```bash
-PYTHONPATH=. python3 run_reconciliation.py
+python3 run_reconciliation.py
 ```
 
 ---
 
 ## 4. Dataset Files & Architecture
 
-* **[`generator.py`](file:///home/vishwa/Project/VaultRecon-AI/datasets/default/generator.py)**: Implements `DefaultDatasetGenerator`, creating `NormalizedDataset` objects.
-* **[`run.py`](file:///home/vishwa/Project/VaultRecon-AI/datasets/default/run.py)**: Orchestrates database ingestion, multi-pass deterministic matching, AI exception forensic investigation, and performance metric reporting.
-* **`generated/`**: Optional destination folder if exporting records to CSV/JSON files.
+* **[`generator.py`](generator.py)**: Implements `DefaultDatasetGenerator`, creating `NormalizedDataset` objects.
+* **[`run.py`](run.py)**: Orchestrates database ingestion, multi-pass deterministic matching, AI exception forensic investigation, and performance metric reporting.
+* **[`data/`](data/)**: Canonical CSV dataset (7 financial sources: payments, processor_transactions, bank_transactions, invoices, settlements, refunds, fee_policies).
 

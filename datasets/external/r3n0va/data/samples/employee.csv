@@ -1,6 +1,0 @@
-employee_id,firm_id,office_id,role_code,role_name,first_name,last_name,email,employment_start_date,employment_end_date,contract_type,weekly_hours,hourly_cost_eur
-EMP000000001,FIRM000000001,OFF000000001,HEAD,Head,Marie,Wagner,marie.wagner.000001@synthetic-accounting.de,2017-07-20,,PERMANENT,30,84.66
-EMP000000002,FIRM000000001,OFF000000001,CM_SR,Senior client manager,Alexander,Richter,alexander.richter.000002@synthetic-accounting.de,2010-12-22,,PERMANENT,40,53.42
-EMP000000003,FIRM000000001,OFF000000001,CM_JR,Junior client manager,Daniel,Schneider,daniel.schneider.000003@synthetic-accounting.de,2018-02-10,,PERMANENT,40,37.13
-EMP000000004,FIRM000000001,OFF000000001,ACC_SR,Senior accountant,Julia,Becker,julia.becker.000004@synthetic-accounting.de,2011-10-16,,PERMANENT,40,52.48
-EMP000000005,FIRM000000001,OFF000000001,ACC_JR,Junior accountant,Daniel,Hoffmann,daniel.hoffmann.000005@synthetic-accounting.de,2018-03-08,,PERMANENT,30,31.71

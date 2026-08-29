@@ -1,9 +1,0 @@
-document_type_code,document_type_name
-SALES_INV,Sales invoice
-PURCHASE_INV,Purchase invoice
-BANK_STMT,Bank statement
-RECEIPT,Receipt
-PAYROLL,Payroll file
-CONTRACT,Contract
-TAX_NOTICE,Tax notice
-EXPENSE,Expense claim

@@ -59,7 +59,7 @@ In early versions, each transaction triggered individual `scan_prefix("IDX:ORDER
 ### Optimized Single-Pass Design:
 1. **Bulk Index Prefetching**: At the start of `reconcile_all()`, the engine issues **one** prefix scan across `IDX:ORDER:`, `IDX:REF:`, and `IDX:TXN:`.
 2. **In-Memory Lookup Map**: Secondary index entries are hashed into Python dictionaries in $O(N)$ time.
-3. **Zero-Copy Matching**: Order lookups during Level 1 and Level 2 matching run in $O(1)$ dictionary lookups, boosting throughput from $49.9\text{ cases/s}$ to **$19,706\text{ cases/sec}$ ($394\times$ speedup)**.
+3. **Zero-Copy Matching**: Order lookups during Level 1 and Level 2 matching run in $O(1)$ dictionary lookups, boosting throughput from $49.9\text{ cases/s}$ to **$23,750+\text{ cases/sec}$ ($475\times$ speedup)**.
 
 ---
 

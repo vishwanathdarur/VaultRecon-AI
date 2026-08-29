@@ -1,2 +1,0 @@
-refund_id,order_id,transaction_id,amount,currency,reason,timestamp
-REFUND-0015,ORD-0015,PAY-0015,25.0,USD,CUSTOMER_RETURN,2026-08-20T12:00:00Z

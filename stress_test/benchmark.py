@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 VaultRecon AI Stress Test Benchmark Runner CLI.
 Generates multi-source synthetic test cases, executes the full production pipeline,
@@ -6,8 +7,15 @@ and runs the independent ground-truth evaluator.
 
 import sys
 import os
+
+# Setup root path resolution
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
 import argparse
 import shutil
+from typing import Optional
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table

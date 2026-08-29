@@ -22,6 +22,7 @@ ENV/
 testdb*
 data_vault*
 *.log
+logs/
 
 # C++ Build Artifacts
 MiniVaultDB/src/**/*.o
